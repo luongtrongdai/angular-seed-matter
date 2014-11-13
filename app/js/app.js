@@ -5,6 +5,6 @@
 angular.module('myApp', ['myApp.controllers']);
 
 angular.module('myApp').run(function($rootScope){
-	$rootScope.title = "Famous Books";
+	$rootScope.title = "Timeout controller";
 	$rootScope.name = "Root Scrope";
 });

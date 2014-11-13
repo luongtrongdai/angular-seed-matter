@@ -18,11 +18,22 @@ angular.module('myApp.controllers')
 			$scope.addToWishList = function (book) {
 				$scope.wishListCount++;
 			}
-			$scope.$watch('wishListCount', function(newValue, oldValue) {
+			var unbindWatcher = $scope.$watch('wishListCount', function(newValue, oldValue) {
 				console.log('Called ' + newValue + ' times.');
-				if (newValue == 2) {
+				if (newValue % 2 == 0) {
 					alert('Great! You have 2 items in you wish list. Time to buy what you love.');
+					unbindWatcher();
 				}
 			});
+
 		});
 
+angular.module('myApp.controllers', [])
+		.controller('TimeoutController', function($scope, $timeout){
+			$scope.scheduleTask = function () {
+				$timeout(function() {
+					$scope.message = "Fetched after 3 seconds";
+					console.log('message='+$scope.message);
+				}, 3000);
+			}
+		});
