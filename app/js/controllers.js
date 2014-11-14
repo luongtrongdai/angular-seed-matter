@@ -1,7 +1,7 @@
 'use strict';
 
 /* Controllers */
-angular.module('myApp.controller', []);
+angular.module('myApp.controllers', []);
 
 
 angular.module('myApp.controllers')
@@ -41,7 +41,7 @@ angular.module('myApp.controllers')
 		});
 
 /* Event in action */
-angular.module('myApp.controller')
+angular.module('myApp.controllers')
 		.controller('MessageController', function($scope, $timeout){
 			$scope.messages = [{
 				sender: 'user1'
@@ -49,7 +49,7 @@ angular.module('myApp.controller')
 			}];
 			var timer;
 			var count = 0;
-			$scope.loadMessage = function () {
+			$scope.loadMessages = function () {
 				count++;
 				$scope.messages.push({
 					sender: "user1"
@@ -64,5 +64,18 @@ angular.module('myApp.controller')
 			timer = $timeout($scope.loadMessages, 2000);
 			$scope.$on('EVENT_RECEIVED', function () {
 				console.log('Received emitted event');
+			});
+		});
+
+angular.module('myApp.controllers')
+		.controller('StatsController', function ($scope) {
+			$scope.name = "World";
+			$scope.status = "Connected";
+			$scope.statusColor = "green";
+			$scope.$on('EVENT_NO_DATA', function (event, data) {
+				console.log("received broadcasted event");
+				$scope.status = data;
+				$scope.statusColor = "red";
+				$scope.$emit('EVENT_RECEIVED');
 			});
 		});
