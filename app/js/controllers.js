@@ -96,3 +96,8 @@ angular.module('myApp.controllers')
 			$scope.lastname = $stateParams.lastname;
 			$scope.names = names;
 		});
+
+angular.module('myApp.controllers')
+		.controller('TestController', function (helloService) {
+			helloService.sayHello('AngularJS');
+		});
