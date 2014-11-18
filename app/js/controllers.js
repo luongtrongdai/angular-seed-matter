@@ -81,14 +81,23 @@ angular.module('myApp.controllers')
 		});
 
 angular.module('myApp.controllers')
-		.controller('Controller1', function($scope, $location){
+		.controller('Controller1', function ($scope, $location, $state) {
 			$scope.loadView2 = function () {
-				$location.path('/view2/' + $scope.firstname + '/' + $scope.lastname);
+				$state.go('view2', {
+					firstname: $scope.firstname
+					, lastname: $scope.lastname
+				});
 			};
 		});
 
 angular.module('myApp.controllers')
-		.controller('Controller2', function($scope, $routeParams){
-			$scope.firstname = $routeParams.firstname;
-			$scope.lastname = $routeParams.lastname;
+		.controller('Controller2', function ($scope, $stateParams, names) {
+			$scope.firstname = $stateParams.firstname;
+			$scope.lastname = $stateParams.lastname;
+			$scope.names = names;
+		});
+
+angular.module('myApp.controllers')
+		.controller('TestController', function (helloService) {
+			helloService.sayHello('AngularJS');
 		});
