@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html ng-app="demoMyApp">
+<head>
+	<title>Demo promise variable</title>
+</head>
+<body ng-controller="MainController">
+	<input type="button" ng-click="getAsyncMessage()" value="Get me an async message">
+	<input type="button" ng-click="cancelRequested = true" value="Cancel Fetching Message">
+	<br>
+	Promise status - {{status}}
+</body>
+<script src="lib/angular/angular.js"></script>
+<script type="text/javascript">
+	angular.module('demoMyApp', [])
+		.controller('MainController', ['$scope', '$q', '$interval', function($scope, $q, $interval){
+			$scope.getPromise = function () {
+				var i = 0;
+				var deferred = $q.defer();
+
+				var timer = $interval(function () {
+					if (!!$scope.cancelRequested) {
+						deferred.reject('Promise Rejected due to canellation.');
+						$interval.cancel(timer);
+					}
+
+					i++;
+					if (i == 5) {
+						deferred.resolve('Counter has reached 5');
+						$interval.cancel(timer);
+					} else {
+						deferred.notify('Counter has reached ' + i);
+					}
+				}, 1000);
+				return deferred.promise;
+			}
+
+			$scope.getAsyncMessage = function () {
+				var promise = $scope.getPromise();
+
+				promise.then(function (msg) {
+					$scope.status = 'Resolved : ' + msg;
+				}, function (msg) {
+					$scope.status = 'Rejected : ' + msg;
+				}, function (msg) {
+					$scope.status = 'Notifying : ' + msg;
+				});
+			}
+		}]);
+	
+</script>
+</html>
