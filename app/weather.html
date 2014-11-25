@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html ng-app="myWeatherApp">
+<head>
+	<title>Fetch weather</title>
+</head>
+<body ng-controller="WeatherController">
+	City: 
+	<input type="text" ng-model='city' placeholder="Enter city name here">
+	Country:
+	<input type="text" ng-model='country' placeholder="Enter country name here">
+	<button ng-click="getWeather()">Get weather</button>
+	<br>
+	<br>
+	<strong>Weather Condition: </strong><span>{{weatherDescription}}</span>
+</body>
+<script src="lib/angular/angular.js"></script>
+<script src="js/controllers.js"></script>
+<script src="js/services.js"></script>
+<script type="text/javascript">
+	angular.module('myWeatherApp', ['myApp.controllers', 'myApp.services']);
+	
+/*	angular.module('myWeatherApp').config(function ($httpProvider) {
+		$httpProvider.defaults.transformResponse = function (data, getHeaders) {
+			data.weather = 'def';
+			return JSON.stringify(data);
+		}
+	});*/
+</script>
+</html>

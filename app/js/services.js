@@ -13,3 +13,22 @@ angular.module('myApp.services')
 				}, 2000);
 			}
 		});
+
+
+angular.module('myApp.services')
+		.factory('weatherService', function ($http) {
+			return {
+				getWeather: function (city, country) {
+					var query = city + ',' + country;
+					return $http.get('http://api.openweathermap.org/data/2.5/weather', {
+						params: {
+							q: query
+						}
+						, cache: true
+					}).then(function (response) {
+						return response.data.weather[0].description;
+					});
+				}
+			}
+		});
+
