@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+	<title>Hello AngularJS</title>
+</head>
+<body ng-controller="HelloController">
+	Your Name: 
+	<input type="text" ng-model="name">
+	<br>
+	<hello-directive></hello-directive>
+	<a hello-directive>abc</a>
+</body>
+<script src="lib/angular/angular.js"></script>
+<script type="text/javascript">
+	angular.module('myApp', [])
+		.controller('HelloController', ['$scope', function ($scope) {
+			$scope.name = "AngularJS";
+		}])
+		.directive('helloDirective', function () {
+			return {
+				restrict: 'AEC', /*E(element), C class, A attribute*/
+				template: function () {
+					return "Hello {{name}}";
+				}
+			};
+		});
+	
+</script>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+	<title>Hello AngularJS</title>
+</head>
+<body ng-controller="HelloController">
+	First Name: 
+	<input type="text" ng-model="firstName">
+	<br>
+	Last Name: 
+	<input type="text" ng-model="lastName">
+	<br>
+	<h3>Hello {{name}}</h3>
+</body>
+<script src="lib/angular/angular.js"></script>
+<script type="text/javascript">
+	angular.module('myApp', [])
+		.controller('HelloController', function ($scope) {
+			$scope.firstName = "";
+			$scope.lastName = "";
+
+			$scope.$watch(function () {
+				//$scope.name = nameService.getFullName(newValue, $scope.lastName); 
+			};
+		});
+
+	/*angular.module('myApp.services', []);
+	
+	angular.module('myApp.services').service('nameService', function () {
+			var that = this;
+			that.getFullName = function (firstName, lastName) {
+				return firstName + " " + lastName;
+			}
+		});*/
+	
+</script>
+</html>
