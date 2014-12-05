@@ -7,8 +7,14 @@
 	Your Name: 
 	<input type="text" ng-model="name">
 	<br>
+	<div hello-directive>
+		<h1>Hello {{name}}</h1>
+		<br>
+		<h2>How are you today?</h2>
+	</div>
 	<hello-directive></hello-directive>
-	<a hello-directive>abc</a>
+	<p transclude-directive>Hello dailuong</p>
+	<p transclude-directive><a href="#">Try my best</a></p>
 </body>
 <script src="lib/angular/angular.js"></script>
 <script type="text/javascript">
@@ -18,10 +24,26 @@
 		}])
 		.directive('helloDirective', function () {
 			return {
+				transclude: 'true',
 				restrict: 'AEC', /*E(element), C class, A attribute*/
 				template: function () {
-					return "Hello {{name}}";
+					return "<div ng-transclude></div>";
 				}
+			};
+		})
+		.directive('transcludeDirective', function () {
+			return {
+				transclude: 'element',
+				scope: {},
+				restrict: 'AE',
+				replace: false,
+				link: function (scope, iElement, iAttrs, ctrl, transclude) {
+					transclude(function (clone) {
+						clone.css('background-color', 'yellow');
+						iElement.after(clone);
+					});
+				},
+				template: '<div ng-transclude></div>'
 			};
 		});
 	
